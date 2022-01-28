@@ -114,7 +114,7 @@ export default function PaginaInicial() {
 
                                 } else{
                                     console.log('if senao', event.target.value)
-                                    setUsernamePic('');
+                                    setUsernamePic('reharada');
                                 }
 
    //                             setUsernamePic(valor.length > 2 ? valor : '')
