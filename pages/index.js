@@ -104,20 +104,6 @@ export default function PaginaInicial() {
                         <TextField
                             value={username}
                             
-
-                            // onChange={function (event) {
-                            //     var myRequest = new Request (onChnage,{username});
-                            //     fetch(myRequest){
-                            //         if (event.target.value.length <2 )
-                            //         setUsername(null);
-                            //          } else {
-                            //              valor = event.target.value
-                            //             setUsername(valor);
-                            //          }
-
-                            //     }
-                            // }
-
                             onChange={function (event) {
                                 const valor = event.target.value;
                                 setUsername(valor);
@@ -129,9 +115,9 @@ export default function PaginaInicial() {
                                 } else{
                                     console.log('if senao', event.target.value)
                                     setUsernamePic('');
- 
-                                
                                 }
+
+   //                             setUsernamePic(valor.length > 2 ? valor : '')
 
                          
                                 
