@@ -1,34 +1,9 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
+import React from 'react';
+import {useRouter} from 'next/router';
 import appConfig from '../config.json';
 
-function GlobalStyle() {
-    return (
-        <style global jsx>{`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-      body {
-        font-family: 'Open Sans', sans-serif;
-      }
-      /* App fit Height */ 
-      html, body, #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */ 
-    `}</style>
-    );
-}
+
 
 function Titulo(props) {
     const Tag = props.tag || 'h1';
@@ -60,11 +35,16 @@ function Titulo(props) {
 // export default HomePage
 
 export default function PaginaInicial() {
-    const username = 'reharada';
+    //const username = 'reharada';
+    const [username, setUsername] = React.useState('reharada');
+    const [usernamePic, setUsernamePic] = React.useState('reharada');
+    const roteamento = useRouter();
+    
+    //console.log('stateDoReact',stateDoReact);
 
     return (
         <>
-            <GlobalStyle />
+           
             <Box
                 styleSheet={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -91,6 +71,13 @@ export default function PaginaInicial() {
                     {/* Formulário */}
                     <Box
                         as="form"
+                        onSubmit ={function (infosDoEvento){
+                            infosDoEvento.preventDefault();
+                            console.log('Alguem submeteu o form');
+                            roteamento.push('/chat');
+
+                        }}
+                        
                         styleSheet={{
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                             width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
@@ -101,7 +88,54 @@ export default function PaginaInicial() {
                             {appConfig.name}
                         </Text>
 
+{/*                         <input
+                            type="text"
+                            value={username}
+                            onChange={function (event) {
+                                console.log('usuario digitou', event.target.value)
+                                //onde esta o valor?
+                                const valor = event.target.value;
+                                //trocar o valor da variavel
+                                setUsername(valor);
+
+                            }}
+                        /> */}
+
                         <TextField
+                            value={username}
+                            
+
+                            // onChange={function (event) {
+                            //     var myRequest = new Request (onChnage,{username});
+                            //     fetch(myRequest){
+                            //         if (event.target.value.length <2 )
+                            //         setUsername(null);
+                            //          } else {
+                            //              valor = event.target.value
+                            //             setUsername(valor);
+                            //          }
+
+                            //     }
+                            // }
+
+                            onChange={function (event) {
+                                const valor = event.target.value;
+                                setUsername(valor);
+
+                                if (valor.length > 2) {
+                                    console.log('usuario digitou', event.target.value)
+                                    setUsernamePic(valor);
+
+                                } else{
+                                    console.log('if senao', event.target.value)
+                                    setUsernamePic('');
+ 
+                                
+                                }
+
+                         
+                                
+                            }}
                             fullWidth
                             textFieldColors={{
                                 neutral: {
@@ -148,7 +182,7 @@ export default function PaginaInicial() {
                                 borderRadius: '50%',
                                 marginBottom: '16px',
                             }}
-                            src={`https://github.com/${username}.png`}
+                            src={`https://github.com/${usernamePic}.png`}
                         />
                         <Text
                             variant="body4"
@@ -159,7 +193,7 @@ export default function PaginaInicial() {
                                 borderRadius: '1000px'
                             }}
                         >
-                            {username}
+                            {usernamePic}
                         </Text>
                     </Box>
                     {/* Photo Area */}
